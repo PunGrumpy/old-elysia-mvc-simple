@@ -15,7 +15,9 @@ services:
       - cockroachdb
 networks:
   cockroachdb:
+    name: cockroachdb
     driver: bridge
 volumes:
   cockroach-data:
+    name: cockroach-data
     driver: local
