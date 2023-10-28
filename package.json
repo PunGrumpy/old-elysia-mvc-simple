@@ -4,6 +4,7 @@
   "module": "src/index.js",
   "scripts": {
     "dev": "bun run --watch src/index.ts",
+    "dev:dockerdbs": "docker compose -f docker/docker-compose.yml up -d",
     "prepare": "husky install",
     "lint": "lint-staged",
     "format": "prettier --write .",
