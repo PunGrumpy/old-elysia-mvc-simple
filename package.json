@@ -2,14 +2,21 @@
   "name": "elysia-mvc-simple",
   "version": "1.0.50",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "prepare": "husky install",
+    "lint": "lint-staged",
+    "format": "prettier --write ."
   },
   "dependencies": {
+    "@prisma/client": "^5.5.2",
     "elysia": "latest"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.2",
+    "prettier": "^3.0.3",
+    "prisma": "^5.5.2"
   },
   "module": "src/index.js"
 }
