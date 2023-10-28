@@ -1,0 +1,21 @@
+version: '3'
+name: development-cluster
+services:
+  cockroachdb:
+    container_name: cockroachdb
+    image: cockroachdb/cockroach:v23.1.11
+    ports:
+      - '26257:26257'
+      - '8080:8080'
+    volumes:
+      - cockroach-data:/cockroach/cockroach-data
+    command: start-single-node --insecure
+    restart: always
+    networks:
+      - cockroachdb
+networks:
+  cockroachdb:
+    driver: bridge
+volumes:
+  cockroach-data:
+    driver: local
