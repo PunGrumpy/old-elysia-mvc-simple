@@ -61,23 +61,38 @@ const userData: Prisma.UserCreateInput[] = [
   }
 ]
 
-async function main() {
-  console.log(`Start seeding ...`)
-  for (const u of userData) {
-    const user = await prisma.user.create({
-      data: u
+async function createUserIfNotExists(user: Prisma.UserCreateInput) {
+  const existingUser = await prisma.user.findUnique({
+    where: {
+      email: user.email
+    }
+  })
+
+  if (!existingUser) {
+    const createdUser = await prisma.user.create({
+      data: user
     })
-    console.log(`Created user with id: ${user.id}`)
+    console.log(`Created user with id: ${createdUser.id}`)
+  } else {
+    console.log(`User with email ${user.email} already exists, skipping.`)
   }
-  console.log(`Seeding finished.`)
 }
 
-main()
-  .then(async () => {
+async function main() {
+  console.log(`Start seeding ...`)
+  try {
+    for (const u of userData) {
+      await createUserIfNotExists(u)
+    }
+    console.log(`Seeding finished.`)
+  } catch (e) {
+    console.error('Unable to seed database', e)
+  } finally {
     await prisma.$disconnect()
-  })
-  .catch(async e => {
-    console.error(e)
-    await prisma.$disconnect()
-    process.exit(1)
-  })
+  }
+}
+
+main().catch(e => {
+  console.error(e)
+  process.exit(1)
+})
