@@ -26,32 +26,96 @@ const app: Elysia = new Elysia()
     })
   )
   .get('/', ({ set }) => (set.redirect = '/swagger'))
-  .get('/users', async ({ set }) => {
-    try {
-      const users = await getAllUsers()
-      if (!users) {
-        set.status = 404
-        return { status: 'error', response: 'Not Found' }
+  .get(
+    '/users',
+    async ({ set }) => {
+      try {
+        const users = await getAllUsers()
+        if (!users) {
+          set.status = 404
+          return { status: 'error', response: 'Not Found' }
+        }
+        return { status: 'success', response: users }
+      } catch (e) {
+        set.status = 500
+        return { status: 'error', response: 'Internal Server Error' }
       }
-      return { status: 'success', response: users }
-    } catch (e) {
-      set.status = 500
-      return { status: 'error', response: 'Internal Server Error' }
-    }
-  })
-  .get('/users/:id', async ({ params: { id }, set }) => {
-    try {
-      const user = await getUserById(id)
-      if (!user) {
-        set.status = 404
-        return { status: 'error', response: 'Not Found' }
+    },
+    {
+      response: {
+        200: t.Object({
+          status: t.String(),
+          response: t.Array(
+            t.Object({
+              id: t.Number(),
+              name: t.String(),
+              email: t.String(),
+              posts: t.Array(
+                t.Object({
+                  id: t.Number(),
+                  title: t.String(),
+                  content: t.String(),
+                  published: t.Boolean()
+                })
+              )
+            })
+          )
+        }),
+        404: t.Object({
+          status: t.String(),
+          response: t.String()
+        }),
+        500: t.Object({
+          status: t.String(),
+          response: t.String()
+        })
       }
-      return { status: 'success', response: user }
-    } catch (e) {
-      set.status = 500
-      return { status: 'error', response: 'Internal Server Error' }
     }
-  })
+  )
+  .get(
+    '/users/:id',
+    async ({ params: { id }, set }) => {
+      try {
+        const user = await getUserById(id)
+        if (!user) {
+          set.status = 404
+          return { status: 'error', response: 'Not Found' }
+        }
+        return { status: 'success', response: user }
+      } catch (e) {
+        set.status = 500
+        return { status: 'error', response: 'Internal Server Error' }
+      }
+    },
+    {
+      response: {
+        200: t.Object({
+          status: t.String(),
+          response: t.Object({
+            id: t.Number(),
+            name: t.String(),
+            email: t.String(),
+            posts: t.Array(
+              t.Object({
+                id: t.Number(),
+                title: t.String(),
+                content: t.String(),
+                published: t.Boolean()
+              })
+            )
+          })
+        }),
+        404: t.Object({
+          status: t.String(),
+          response: t.String()
+        }),
+        500: t.Object({
+          status: t.String(),
+          response: t.String()
+        })
+      }
+    }
+  )
   .post(
     '/users',
     async ({ body, set }) => {
@@ -67,7 +131,29 @@ const app: Elysia = new Elysia()
       body: t.Object({
         name: t.String(),
         email: t.String()
-      })
+      }),
+      response: {
+        200: t.Object({
+          status: t.String(),
+          response: t.Object({
+            id: t.Number(),
+            name: t.String(),
+            email: t.String(),
+            posts: t.Array(
+              t.Object({
+                id: t.Number(),
+                title: t.String(),
+                content: t.String(),
+                published: t.Boolean()
+              })
+            )
+          })
+        }),
+        500: t.Object({
+          status: t.String(),
+          response: t.String()
+        })
+      }
     }
   )
   .put(
@@ -85,7 +171,29 @@ const app: Elysia = new Elysia()
       body: t.Object({
         name: t.String(),
         email: t.String()
-      })
+      }),
+      response: {
+        200: t.Object({
+          status: t.String(),
+          response: t.Object({
+            id: t.Number(),
+            name: t.String(),
+            email: t.String(),
+            posts: t.Array(
+              t.Object({
+                id: t.Number(),
+                title: t.String(),
+                content: t.String(),
+                published: t.Boolean()
+              })
+            )
+          })
+        }),
+        500: t.Object({
+          status: t.String(),
+          response: t.String()
+        })
+      }
     }
   )
   .listen(3000)
