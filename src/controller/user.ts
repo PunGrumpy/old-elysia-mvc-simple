@@ -21,4 +21,27 @@ const getUserById = async (id: string) => {
   return user
 }
 
-export { getAllUsers, getUserById }
+const createUser = async (body: any) => {
+  const user = await prisma.user.create({
+    data: {
+      name: body.name,
+      email: body.email
+    }
+  })
+  return user
+}
+
+const updateUser = async (id: string, body: any) => {
+  const user = await prisma.user.update({
+    where: {
+      id: Number(id)
+    },
+    data: {
+      name: body.name,
+      email: body.email
+    }
+  })
+  return user
+}
+
+export { getAllUsers, getUserById, createUser, updateUser }

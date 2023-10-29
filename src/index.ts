@@ -1,6 +1,11 @@
 import swagger from '@elysiajs/swagger'
-import { Elysia } from 'elysia'
-import { getAllUsers, getUserById } from './controller/user'
+import { Elysia, t } from 'elysia'
+import {
+  createUser,
+  getAllUsers,
+  getUserById,
+  updateUser
+} from './controller/user'
 
 const app: Elysia = new Elysia()
   .use(swagger())
@@ -31,6 +36,42 @@ const app: Elysia = new Elysia()
       return { status: 'error', response: 'Internal Server Error' }
     }
   })
+  .post(
+    '/users',
+    async ({ body, set }) => {
+      try {
+        const user = await createUser(body)
+        return { status: 'success', response: user }
+      } catch (e) {
+        set.status = 500
+        return { status: 'error', response: 'Internal Server Error' }
+      }
+    },
+    {
+      body: t.Object({
+        name: t.String(),
+        email: t.String()
+      })
+    }
+  )
+  .put(
+    '/users/:id',
+    async ({ params: { id }, body, set }) => {
+      try {
+        const user = await updateUser(id, body)
+        return { status: 'success', response: user }
+      } catch (e) {
+        set.status = 500
+        return { status: 'error', response: 'Internal Server Error' }
+      }
+    },
+    {
+      body: t.Object({
+        name: t.String(),
+        email: t.String()
+      })
+    }
+  )
   .listen(3000)
 
 console.log(
