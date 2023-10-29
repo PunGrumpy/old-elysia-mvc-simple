@@ -7,7 +7,7 @@ import {
 import { t } from 'elysia'
 import { CreateElysia } from '../../utils/elysia'
 
-const routes = CreateElysia({ prefix: '/api/v1' })
+const routes = CreateElysia({ prefix: '/api' })
   .get(
     '/users',
     async ({ set }) => {
