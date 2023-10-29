@@ -10,7 +10,7 @@ const app: Elysia = new Elysia()
       const users = await getAllUsers()
       return { status: 200, message: 'success', body: users }
     } catch (e) {
-      return { status: 500, message: 'internal server error' }
+      return { status: 404, message: 'users not found' }
     }
   })
   .get('/users/:id', async ({ params }: { params: { id: string } }) => {
