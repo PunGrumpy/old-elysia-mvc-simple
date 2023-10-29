@@ -2,5 +2,5 @@
   "github": {
     "silent": true
   },
-  "buildCommand": "bun run build"
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
