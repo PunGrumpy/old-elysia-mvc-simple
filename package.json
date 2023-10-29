@@ -4,12 +4,14 @@
   "module": "src/index.js",
   "scripts": {
     "dev": "bun run --watch src/index.ts",
-    "dev:dockerdbs": "docker compose -f docker/docker-compose.yml up -d",
+    "dev:dockerdb": "docker compose -f docker/docker-compose.yml up -d",
     "prepare": "husky install",
     "lint": "lint-staged",
     "format": "prettier --write .",
     "db": "prisma migrate dev && prisma generate",
-    "db:studio": "prisma studio"
+    "db:seed": "prisma db seed",
+    "db:studio": "prisma studio",
+    "db:reset": "prisma migrate reset --preview-feature"
   },
   "dependencies": {
     "@elysiajs/swagger": "^0.7.4",
