@@ -3,7 +3,6 @@
   "version": "1.0.50",
   "module": "src/index.js",
   "scripts": {
-    "build": "bun scripts/transform-paths.ts",
     "dev": "bun run --watch src/index.ts",
     "dev:dockerdb": "docker compose -f docker/docker-compose.yml up -d",
     "prepare": "husky install",
