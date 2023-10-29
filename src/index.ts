@@ -5,10 +5,22 @@ import { getAllUsers, getUserById } from './controller/user'
 const app: Elysia = new Elysia()
   .use(swagger())
   .get('/', ({ set }) => (set.redirect = '/swagger'))
-  .get('/users', getAllUsers)
-  .get('/users/:id', ({ params }: { params: { id: string } }) => {
-    const { id } = params
-    return getUserById(id)
+  .get('/users', async () => {
+    try {
+      const users = await getAllUsers()
+      return { status: 200, message: 'success', body: users }
+    } catch (e) {
+      return { status: 500, message: 'internal server error' }
+    }
+  })
+  .get('/users/:id', async ({ params }: { params: { id: string } }) => {
+    try {
+      const { id } = params
+      const user = await getUserById(id)
+      return { status: 200, message: 'success', body: user }
+    } catch (e) {
+      return { status: 404, message: 'user not found' }
+    }
   })
   .listen(3000)
 
