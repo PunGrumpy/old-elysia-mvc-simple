@@ -18,7 +18,8 @@
   "dependencies": {
     "@elysiajs/swagger": "^0.7.4",
     "@prisma/client": "^5.5.2",
-    "elysia": "latest"
+    "elysia": "latest",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "^20.8.9",

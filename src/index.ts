@@ -1,11 +1,12 @@
-import swagger from '@elysiajs/swagger'
-import { Elysia, t } from 'elysia'
 import {
   createUser,
   getAllUsers,
   getUserById,
   updateUser
 } from './controller/user'
+import { env } from './env'
+import { Elysia, t } from 'elysia'
+import swagger from '@elysiajs/swagger'
 
 const app: Elysia = new Elysia()
   .use(
@@ -196,7 +197,7 @@ const app: Elysia = new Elysia()
       }
     }
   )
-  .listen(3000)
+  .listen(env.PORT)
 
 console.log(
   `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
