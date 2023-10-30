@@ -15,6 +15,10 @@ const app = CreateElysia()
           license: {
             name: 'MIT',
             url: 'https://opensource.org/license/mit/'
+          },
+          contact: {
+            name: 'PunGrumpy',
+            url: 'https://pungrumpy.com'
           }
         }
       }
