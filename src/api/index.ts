@@ -2,7 +2,7 @@ import swagger from '@elysiajs/swagger'
 import { route as UserRoute } from './user/route'
 import { CreateElysia } from '../utils/elysia'
 
-const app = CreateElysia()
+const APIRoute = CreateElysia()
   .use(
     swagger({
       exclude: ['/swagger'],
@@ -22,4 +22,4 @@ const app = CreateElysia()
   )
   .use(UserRoute)
 
-export { app }
+export { APIRoute }
