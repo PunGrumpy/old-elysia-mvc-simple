@@ -1,5 +1,5 @@
 import swagger from '@elysiajs/swagger'
-import { routes as UserAPIRoute } from './user'
+import { route as UserRoute } from './user/route'
 import { CreateElysia } from '../utils/elysia'
 
 const app = CreateElysia()
@@ -20,6 +20,6 @@ const app = CreateElysia()
       }
     })
   )
-  .use(UserAPIRoute)
+  .use(UserRoute)
 
 export { app }

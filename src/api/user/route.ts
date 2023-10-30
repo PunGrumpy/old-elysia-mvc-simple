@@ -7,7 +7,7 @@ import {
 import { t } from 'elysia'
 import { CreateElysia } from '../../utils/elysia'
 
-const routes = CreateElysia({ prefix: '/api' })
+const route = CreateElysia({ prefix: '/api' })
   .get(
     '/users',
     async ({ set }) => {
@@ -179,4 +179,4 @@ const routes = CreateElysia({ prefix: '/api' })
     }
   )
 
-export { routes }
+export { route }
