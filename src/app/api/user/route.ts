@@ -3,11 +3,11 @@ import {
   getAllUsers,
   getUserById,
   updateUser
-} from '../../controller/user'
+} from '../../../controller/user'
 import { t } from 'elysia'
-import { CreateElysia } from '../../utils/elysia'
+import { CreateElysia } from '../../../utils/elysia'
 
-const route = CreateElysia({ prefix: '/api' })
+const route = CreateElysia({ prefix: '/v1' })
   .get(
     '/users',
     async ({ set }) => {
