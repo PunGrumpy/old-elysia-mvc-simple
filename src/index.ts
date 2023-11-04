@@ -2,6 +2,7 @@ import { env } from './env'
 import { app } from './app'
 import { CreateElysia } from './utils/elysia'
 import { contextRequest } from './utils/contextRequest'
+import { logging } from './plugin/logging'
 
 const server = CreateElysia()
   .derive(ctx => contextRequest(ctx.request))
@@ -13,21 +14,5 @@ server.listen({ port: env.PORT }, ({ hostname, port }) => {
 
   const message = `🦊 Elysia is running at ${url}://${hostname}:${port}`
   const title = `Elysia v${env.ELYSIA_VERSION}`
-  const boxWidth = Math.max(message.length, title.length) + 4
-  const border = '─'.repeat(boxWidth)
-
-  const centerPad = (text: string) => {
-    const padding = ' '.repeat((boxWidth - text.length) / 2)
-    return `${padding}${text}${padding}`
-  }
-
-  console.log(`
-  ┌${border}┐
-  │${centerPad('')} │
-  │${centerPad(title)}│
-  │${centerPad('')} │
-  │${centerPad(message)}│
-  │${centerPad('')} │
-  └${border}┘
-  `)
+  logging(message, title)
 })
