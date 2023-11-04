@@ -3,9 +3,11 @@ import { app } from './app'
 import { CreateElysia } from './utils/elysia'
 import { contextRequest } from './utils/contextRequest'
 import { logging } from './plugin/logging'
+import { logger } from '@pungrumpy/logixlysia'
 
 const server = CreateElysia()
   .derive(ctx => contextRequest(ctx.request))
+  .use(logger())
   .use(app)
 
 server.listen({ port: env.PORT }, ({ hostname, port }) => {
