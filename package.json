@@ -18,7 +18,7 @@
     "@elysiajs/swagger": "^0.7.4",
     "@prisma/client": "^5.5.2",
     "elysia": "latest",
-    "logixlysia": "^0.0.2-alpha.2",
+    "logixlysia": "^1.0.0-beta.1",
     "zod": "^3.22.4"
   },
   "devDependencies": {
